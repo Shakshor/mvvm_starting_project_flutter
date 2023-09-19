@@ -2,10 +2,9 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
 import 'package:mvvm_starting_project/data/app_exception.dart';
 import 'package:mvvm_starting_project/data/network/BaseApiServices.dart';
-import 'package:http/http.dart' as http;
 
 
 
@@ -21,7 +20,9 @@ class NetWorkApiService extends BaseApiService{
 
     try{
 
-      final response = await http.get(Uri.parse(url)).timeout(const Duration(seconds: 10));
+      final response = await http.get(Uri.parse(url))
+          .timeout(const Duration(seconds: 10));
+
       //function calling and get the result
       responseJson = returnResponse(response);
 
@@ -47,10 +48,10 @@ class NetWorkApiService extends BaseApiService{
 
     try{
 
-      Response response = await post(
+      final response = await http.post(
         Uri.parse(url),
         body: data
-      ).timeout(Duration(seconds: 10));
+      ).timeout(const Duration(seconds: 10));
 
       responseJson = returnResponse(response);
 
@@ -97,3 +98,7 @@ class NetWorkApiService extends BaseApiService{
 
 
 }
+
+
+
+

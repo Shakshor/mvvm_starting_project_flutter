@@ -13,6 +13,18 @@ class AppException implements Exception{
 }
 
 
+
+/*-------------------------------------------------------
+// invalid_input_error_showing
+class InvalidInputException extends AppException {
+
+  InvalidInputException([String? message, String? prefix]) : super(message, prefix);
+
+}-------------- passing the dynamic prefix ------------*/
+
+
+
+
 // time_out_exception
 class FetchDataException extends AppException {
 
@@ -23,7 +35,7 @@ class FetchDataException extends AppException {
 // invalid_route
 class BadRequestException extends AppException {
 
-  BadRequestException([String? message]) : super(message, 'Invalid Request');
+  BadRequestException([String? message]) : super(message, 'Invalid  Request');
 
 }
 
@@ -36,9 +48,9 @@ class UnAuthorisedException extends AppException {
 }
 
 
-// unauthorised_error_showing
+// invalid_input_error_showing
 class InvalidInputException extends AppException {
 
-  InvalidInputException([String? message]) : super(message, 'Invalid Input');
+  InvalidInputException([String? message]) : super(message, 'Invalid Input Request');
 
 }
