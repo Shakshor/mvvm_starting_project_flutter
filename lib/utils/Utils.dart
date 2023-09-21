@@ -6,6 +6,28 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 class Utils {
 
+
+  // new
+  /*------------ focus_change_function ---------------*/
+  static void fieldFocusChange(
+      BuildContext context,
+      FocusNode current,
+      FocusNode nextFocus
+      ) {
+
+      // stop the current focus
+      current.unfocus();
+      // go_to_next_focus
+      FocusScope.of(context).requestFocus(nextFocus);
+
+
+  }
+
+
+
+
+
+
   // toast_message method
   static toastMessage(message){
 
