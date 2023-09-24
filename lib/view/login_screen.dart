@@ -1,6 +1,9 @@
 
 import 'package:flutter/material.dart';
+import 'package:mvvm_starting_project/res/components/round_button.dart';
 import 'package:mvvm_starting_project/utils/Utils.dart';
+// provider
+import 'package:provider/provider.dart';
 import 'package:mvvm_starting_project/utils/routes/routes_name.dart';
 import 'package:mvvm_starting_project/view/home_screen.dart';
 
@@ -15,6 +18,9 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
 
 
+  // state_management
+  ValueNotifier<bool> _obsecurePassword = ValueNotifier<bool>(true);
+
   // text_field_controller
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
@@ -25,8 +31,32 @@ class _LoginScreenState extends State<LoginScreen> {
   FocusNode passwordFocusNode = FocusNode();
 
 
+
+
+  // dispose_function
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+
+
+    _passwordController.dispose();
+    _emailController.dispose();
+    _obsecurePassword.dispose();
+
+    emailFocusNode.dispose();
+    passwordFocusNode.dispose();
+
+  }
+
+
   @override
   Widget build(BuildContext context) {
+
+    // screen_height
+    final height = MediaQuery.of(context).size.height;
+    // final width = MediaQuery.of(context).size.width;
+
     return Scaffold(
 
 
@@ -81,6 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   prefixIcon: Icon(Icons.email_outlined)
               ),
 
+              // focus_changing
               onFieldSubmitted: (nextFocusVal){
 
                 // FocusScope.of(context).requestFocus(passwordFocusNode);
@@ -95,20 +126,69 @@ class _LoginScreenState extends State<LoginScreen> {
 
 
             // password_form_field
-            TextFormField(
-              controller: _passwordController,
-              obscureText: true,
-              obscuringCharacter: '*', // new
-              focusNode: passwordFocusNode, // new
+            ValueListenableBuilder(
+                valueListenable: _obsecurePassword,
+                builder: (context, value, child){
+                  return TextFormField(
+                    controller: _passwordController,
+                    obscureText: _obsecurePassword.value,
+                    obscuringCharacter: '*', // new
+                    focusNode: passwordFocusNode, // new
 
-              decoration: const InputDecoration(
-                  hintText: 'Password',
-                  labelText: 'Password',
-                  prefixIcon: Icon(Icons.lock_outlined),
-                  suffixIcon: Icon(Icons.visibility_off_outlined)
-              ),
+                    decoration:  InputDecoration(
+                        hintText: 'Password',
+                        labelText: 'Password',
+                        prefixIcon: const Icon(Icons.lock_outlined),
+
+                        suffixIcon: InkWell(
+                            onTap: (){
+                              _obsecurePassword.value = !_obsecurePassword.value;
+                            },
+                            child: Icon(
+                            _obsecurePassword.value ?  Icons.visibility_off_outlined : Icons.visibility
+                            )
+                        )
+
+
+                    ),
+
+                  );
+                }
+            ),
+
+
+            // height
+            SizedBox(
+              height: height * 0.1,
+            ),
+
+
+            RoundButton(
+
+                height: height * 0.05,
+                title: 'Login',
+                onPress: (){
+
+
+                  // custom_condition_for_login
+                  if(_emailController.text.isEmpty){
+                    Utils.flushbarErrorMessage('Please enter email', context);
+
+                  }else if(_passwordController.text.isEmpty){
+                    Utils.flushbarErrorMessage('Please enter password', context);
+
+                  }else if(_passwordController.text.length < 6){
+                    Utils.flushbarErrorMessage('Please enter 6 digit password', context);
+
+                  }else{
+                    Utils.flushbarErrorMessage('Login Successful', context);
+                  }
+
+                },
 
             ),
+
+
 
           ],
         ),
