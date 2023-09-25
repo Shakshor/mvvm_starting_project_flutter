@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:mvvm_starting_project/res/components/round_button.dart';
 import 'package:mvvm_starting_project/utils/Utils.dart';
+import 'package:mvvm_starting_project/view_model/auth_view_model.dart';
 // provider
 import 'package:provider/provider.dart';
 import 'package:mvvm_starting_project/utils/routes/routes_name.dart';
@@ -50,8 +51,13 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
 
+
+
   @override
   Widget build(BuildContext context) {
+
+    // provider/view_model declare
+    final authViewModel = Provider.of<AuthViewModel>(context);
 
     // screen_height
     final height = MediaQuery.of(context).size.height;
@@ -165,8 +171,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
             RoundButton(
 
-                height: height * 0.05,
-                title: 'Login',
+              loading: authViewModel.loading,
+              height: height * 0.05,
+              title: 'Login',
                 onPress: (){
 
 
@@ -181,7 +188,15 @@ class _LoginScreenState extends State<LoginScreen> {
                     Utils.flushbarErrorMessage('Please enter 6 digit password', context);
 
                   }else{
-                    Utils.flushbarErrorMessage('Login Successful', context);
+
+                    Map data = {
+                      "email": _emailController.text.toString(),
+                      "password": _passwordController.text.toString(),
+                    };
+
+                      authViewModel.loginApi(data, context);
+
+                      print('login api hit sucessfullu');
                   }
 
                 },
