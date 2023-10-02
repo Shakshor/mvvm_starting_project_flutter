@@ -1,22 +1,20 @@
-
 import 'package:flutter/material.dart';
 import 'package:mvvm_starting_project/res/components/round_button.dart';
 import 'package:mvvm_starting_project/utils/Utils.dart';
-import 'package:mvvm_starting_project/view_model/auth_view_model.dart';
-// provider
-import 'package:provider/provider.dart';
 import 'package:mvvm_starting_project/utils/routes/routes_name.dart';
-import 'package:mvvm_starting_project/view/home_screen.dart';
+import 'package:mvvm_starting_project/view_model/auth_view_model.dart';
+import 'package:provider/provider.dart';
 
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignUpScreenState extends State<SignUpScreen> {
 
 
   // state_management
@@ -68,33 +66,10 @@ class _LoginScreenState extends State<LoginScreen> {
 
       appBar: AppBar(
 
-        title: const Text('Login'),
+        title: const Text('Sign Up'),
         centerTitle: true,
         backgroundColor: Colors.blue,
       ),
-
-
-      // body: Center(
-      //     child: InkWell(
-      //         onTap: ( ){
-      //
-      //
-      //           // Utils.toastMessage('No internet connection');
-      //
-      //           // Utils.flushbarErrorMessage('Show Error Message', context);
-      //
-      //           Utils.snackBar('show message sniper', context);
-      //
-      //
-      //
-      //           // Navigator.pushNamed(context, RoutesName.home);
-      //           //
-      //           // // Navigator.push(context, MaterialPageRoute(builder: (context)=> HomeScreen()))
-      //         },
-      //         child: const Text('Show Message'),
-      //     )
-      // ),
-
 
 
       body: SafeArea(
@@ -151,7 +126,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               _obsecurePassword.value = !_obsecurePassword.value;
                             },
                             child: Icon(
-                            _obsecurePassword.value ?  Icons.visibility_off_outlined : Icons.visibility
+                                _obsecurePassword.value ?  Icons.visibility_off_outlined : Icons.visibility
                             )
                         )
 
@@ -173,33 +148,33 @@ class _LoginScreenState extends State<LoginScreen> {
 
               loading: authViewModel.loading,
               height: height * 0.05,
-              title: 'Login',
-                onPress: (){
+              title: 'Sign Up',
+              onPress: (){
 
 
-                  // custom_condition_for_login
-                  if(_emailController.text.isEmpty){
-                    Utils.flushbarErrorMessage('Please enter email', context);
+                // custom_condition_for_login
+                if(_emailController.text.isEmpty){
+                  Utils.flushbarErrorMessage('Please enter email', context);
 
-                  }else if(_passwordController.text.isEmpty){
-                    Utils.flushbarErrorMessage('Please enter password', context);
+                }else if(_passwordController.text.isEmpty){
+                  Utils.flushbarErrorMessage('Please enter password', context);
 
-                  }else if(_passwordController.text.length < 6){
-                    Utils.flushbarErrorMessage('Please enter 6 digit password', context);
+                }else if(_passwordController.text.length < 6){
+                  Utils.flushbarErrorMessage('Please enter 6 digit password', context);
 
-                  }else{
+                }else{
 
-                    Map data = {
-                      "email": _emailController.text.toString(),
-                      "password": _passwordController.text.toString(),
-                    };
+                  Map data = {
+                    "email": _emailController.text.toString(),
+                    "password": _passwordController.text.toString(),
+                  };
 
-                      authViewModel.loginApi(data, context);
+                  authViewModel.signUpApi(data, context);
 
-                      print('login api hit sucessfullu');
-                  }
+                  print('SignUp api hit sucessfully');
+                }
 
-                },
+              },
 
             ),
 
@@ -209,12 +184,12 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
 
             InkWell(
-              onTap: (){
+                onTap: (){
 
-                Navigator.pushNamed(context, RoutesName.signUp);
+                  Navigator.pushNamed(context, RoutesName.login);
 
-              },
-                child: const Text("Don't have an account? Sign Up")
+                },
+                child: const Text("Already have an account? Login")
             ),
 
 
@@ -228,4 +203,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
     );
   }
+
+
+
 }
