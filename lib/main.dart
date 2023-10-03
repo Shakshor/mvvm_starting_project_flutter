@@ -3,6 +3,7 @@ import 'package:mvvm_starting_project/utils/routes/routes.dart';
 import 'package:mvvm_starting_project/utils/routes/routes_name.dart';
 import 'package:mvvm_starting_project/view/login_screen.dart';
 import 'package:mvvm_starting_project/view_model/auth_view_model.dart';
+import 'package:mvvm_starting_project/view_model/user_view_model.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
         providers: [
 
           ChangeNotifierProvider(create: (_) => AuthViewModel() ),
+          ChangeNotifierProvider(create: (_) => UserViewModel()),
 
         ],
 
@@ -49,7 +51,7 @@ class MyApp extends StatelessWidget {
 
         /*-------------------------- routes declaration --------------------*/
         // home: const LoginScreen(),
-        initialRoute: RoutesName.login,
+        initialRoute: RoutesName.splash,
         onGenerateRoute: Routes.generateRoute,
 
         /*---------------------------- routes declaration end ---------------------------------------*/

@@ -189,10 +189,16 @@ class _LoginScreenState extends State<LoginScreen> {
 
                   }else{
 
+                    // Map data = {
+                    //   "email": _emailController.text.toString(),
+                    //   "password": _passwordController.text.toString(),
+                    // };
+
                     Map data = {
-                      "email": _emailController.text.toString(),
-                      "password": _passwordController.text.toString(),
+                      "email": "eve.holt@reqres.in",
+                      "password": "cityslicka",
                     };
+
 
                       authViewModel.loginApi(data, context);
 

@@ -4,6 +4,7 @@ import 'package:mvvm_starting_project/utils/routes/routes_name.dart';
 import 'package:mvvm_starting_project/view/home_screen.dart';
 import 'package:mvvm_starting_project/view/login_screen.dart';
 import 'package:mvvm_starting_project/view/sign_up_screen.dart';
+import 'package:mvvm_starting_project/view/splash_screen.dart';
 
 
 class Routes {
@@ -13,6 +14,11 @@ class Routes {
 
     // checking_with _route_name
     switch(settings.name){
+
+
+    // home_screen
+      case RoutesName.splash:
+        return MaterialPageRoute(builder: (BuildContext context) => const SplashScreen());
 
         // home_screen
         case RoutesName.home:
