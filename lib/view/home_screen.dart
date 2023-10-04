@@ -27,34 +27,47 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
 
-      // appBar: AppBar(
-      //
-      //   title: Text('Home Screen'),
-      //
-      // ),
+      appBar: AppBar(
 
-      body: SafeArea(
+        title: Text('Home Screen'),
+        backgroundColor: Colors.blue,
+        automaticallyImplyLeading: false,
 
-        child: Column(
-          children: [
+        actions: [
 
-            InkWell(
+          InkWell(
 
               onTap: (){
 
                 userPreference.removeUser().then((value)
-                    {
-                      Navigator.pushNamed(context, RoutesName.login);
-                    }
+                {
+                  Navigator.pushNamed(context, RoutesName.login);
+                }
                 );
               },
 
-                child: Text('Logout')
-            )
+              child: Center(child: Text('Logout'))
+          ),
+
+
+          SizedBox(width: 20,),
+
+        ],
+
+      ),
+
+    /*  body: SafeArea(
+
+        child: Column(
+          children: [
+
+
 
           ],
         ),
-      ),
+      ),*/
+
+
 
     );
   }
