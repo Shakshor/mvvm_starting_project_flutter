@@ -2,9 +2,12 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:mvvm_starting_project/model/UserModel.dart';
 import 'package:mvvm_starting_project/repository/auth_repository.dart';
 import 'package:mvvm_starting_project/utils/Utils.dart';
 import 'package:mvvm_starting_project/utils/routes/routes_name.dart';
+import 'package:mvvm_starting_project/view_model/user_view_model.dart';
+import 'package:provider/provider.dart';
 
 class AuthViewModel  extends ChangeNotifier{
 
@@ -38,26 +41,34 @@ class AuthViewModel  extends ChangeNotifier{
 
     setLoading(true);
 
-    _authRepo.loginApi(data).then((value) => {
+    _authRepo.loginApi(data).then((value)  {
 
-      setLoading(false),
-      Utils.flushbarErrorMessage('Login Successful', context),
+      setLoading(false);
 
-      Navigator.pushNamed(context, RoutesName.home),
+      // initialize_user_view_model(save_user)
+      final userPreference = Provider.of<UserViewModel>(context, listen: false);
+      userPreference.saveUser(
+        UserModel(
+          token: value['token'].toString(),
+        )
+      );
+
+      Utils.flushbarErrorMessage('Login Successful', context);
+      Navigator.pushNamed(context, RoutesName.home);
 
       if(kDebugMode){
-        print(value.toString()),
+        print(value.toString());
       }
 
 
       }
-    ).onError((error, stackTrace) => {
+    ).onError((error, stackTrace) {
 
-      setLoading(false),
+      setLoading(false);
 
       if(kDebugMode){
-        print(error.toString()),
-        Utils.flushbarErrorMessage(error.toString(), context),
+        print(error.toString());
+        Utils.flushbarErrorMessage(error.toString(), context);
       }
 
 

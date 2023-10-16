@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:mvvm_starting_project/data/response/status.dart';
 import 'package:mvvm_starting_project/utils/routes/routes_name.dart';
+import 'package:mvvm_starting_project/view_model/home_view_model.dart';
 import 'package:mvvm_starting_project/view_model/user_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -14,7 +16,17 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
 
 
+  // view_model_calling_only_runtime
+  HomeViewModel homeViewModel = HomeViewModel();
 
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    homeViewModel.fetchUserDetails(context);
+
+    super.initState();
+  }
 
 
 
@@ -29,7 +41,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
       appBar: AppBar(
 
-        title: Text('Home Screen'),
+        title: const Text('Home Screen'),
+        centerTitle: true,
         backgroundColor: Colors.blue,
         automaticallyImplyLeading: false,
 
@@ -39,14 +52,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
               onTap: (){
 
-                userPreference.removeUser().then((value)
-                {
+                userPreference.removeUser().then((value) {
                   Navigator.pushNamed(context, RoutesName.login);
                 }
                 );
               },
 
-              child: Center(child: Text('Logout'))
+              child: const Center(child: Text('Logout'))
           ),
 
 
@@ -56,16 +68,43 @@ class _HomeScreenState extends State<HomeScreen> {
 
       ),
 
-    /*  body: SafeArea(
+      body: ChangeNotifierProvider<HomeViewModel>(
 
-        child: Column(
-          children: [
+        create: (BuildContext context) => homeViewModel,
+        child: Consumer<HomeViewModel>(
+          builder: (context, value, child) {
 
+            switch(value.usersList.status!){
 
+              case Status.LOADING:
+                return Center(child: const CircularProgressIndicator());
+              case Status.ERROR:
+                return Center(child: Text(value.usersList.message.toString()));
 
-          ],
+              case Status.COMPLETED:
+
+                var userListData = value.usersList.data!;
+
+                return ListView.builder(
+                    itemCount: userListData.length!,
+                    itemBuilder: (context, index){
+                      return Card(
+
+                        child: ListTile(
+                          title: Text(userListData[index].name!),
+                          subtitle: Text(userListData[index].username!),
+                        ),
+
+                      );
+                    }
+                );
+            }
+
+            return Container();
+          },
         ),
-      ),*/
+
+      ),
 
 
 

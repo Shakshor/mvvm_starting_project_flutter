@@ -202,7 +202,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                       authViewModel.loginApi(data, context);
 
-                      print('login api hit sucessfullu');
+                      print('login api hit sucessfully');
                   }
 
                 },
