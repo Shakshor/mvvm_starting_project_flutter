@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:mvvm_starting_project/utils/routes/routes_name.dart';
 import 'package:mvvm_starting_project/view/home_screen.dart';
+import 'package:mvvm_starting_project/view/internal_req_pending_screen.dart';
 import 'package:mvvm_starting_project/view/login_screen.dart';
 import 'package:mvvm_starting_project/view/sign_up_screen.dart';
 import 'package:mvvm_starting_project/view/splash_screen.dart';
@@ -22,7 +23,11 @@ class Routes {
 
         // home_screen
         case RoutesName.home:
-          return MaterialPageRoute(builder: (BuildContext context) => const HomeScreen());
+          return MaterialPageRoute(builder: (BuildContext context) => const HomeScreen());// home_screen
+
+        // internal_req_pending_screen
+        case RoutesName.intReqPending:
+          return MaterialPageRoute(builder: (BuildContext context) => const InternalReqPendingScreen());
 
         // login_screen
         case RoutesName.login:

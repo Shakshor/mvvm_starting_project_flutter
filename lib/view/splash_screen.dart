@@ -14,26 +14,21 @@ class _SplashScreenState extends State<SplashScreen> {
   // creating_object
   SplashServices splashServices = SplashServices();
 
-
-
-
   @override
   void initState() {
-
+    // authentication_checking
     splashServices.checkAuthentication(context);
-
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-
-      body: Center(
-        child: Text('Splash Screen', style: Theme.of(context).textTheme.headlineLarge,),
+    return SafeArea(
+      child: Scaffold(
+        body: Center(
+          child: Text('Splash Screen', style: Theme.of(context).textTheme.headlineLarge,),
+        ),
       ),
-
     );
   }
 }

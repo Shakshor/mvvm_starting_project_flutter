@@ -29,7 +29,7 @@ class SplashServices {
 
 
         await Future.delayed(Duration(seconds: 2));
-        Navigator.pushNamed(context, RoutesName.home);
+        Navigator.pushNamed(context, RoutesName.intReqPending);
 
       }
 

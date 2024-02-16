@@ -9,6 +9,7 @@ class RoutesName{
 
   // home_screen_route_name
   static const String home = 'home_screen';
+  static const String intReqPending = 'internal_req_pending_screen';
 
 
 }
